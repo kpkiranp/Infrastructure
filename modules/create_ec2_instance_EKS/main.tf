@@ -1,3 +1,5 @@
+# Creation of EC2 instance to interact with EKS Cluster
+
 resource "aws_instance" "EKS_instance" {
   ami = var.ec2_ami_id
   instance_type = var.ec2_instance_type

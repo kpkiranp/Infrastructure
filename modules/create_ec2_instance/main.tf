@@ -1,3 +1,5 @@
+# Creation of Jenkins ec2 server
+
 resource "aws_instance" "jenkins_master_instance" {
   ami = var.ec2_ami_id
   instance_type = var.ec2_instance_type

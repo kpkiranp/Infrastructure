@@ -1,3 +1,4 @@
+# Output variables for VPC Module
 output "vpc_id" {
   value = "${aws_vpc.vpc.id}"
 }

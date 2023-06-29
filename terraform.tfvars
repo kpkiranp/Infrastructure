@@ -1,3 +1,5 @@
+# Below are the Values for the Variables declared accross all the modules
+
 root_region="us-east-1"
 root_environment="dev"
 root_vpc_cidr="10.0.0.0/16"

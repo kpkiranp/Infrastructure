@@ -1,16 +1,20 @@
+#  Resource Block for Creation Of EKS Cluster
 resource "aws_eks_cluster" "eks_cluster" {
     name = "${var.environment}-eks-cluster"
     version = "1.27"
     role_arn = aws_iam_role.cluster.arn
 
+# Resource Block for VPC configuration to the cluster
     vpc_config {
         subnet_ids = var.eks_subnet_ids
         endpoint_private_access =  true
         endpoint_public_access = true
+        
     }
-
+# Creation of the above resources depends on the creation of the IAM role below
     depends_on = [
         aws_iam_role_policy_attachment.cluster_AmazonEKSClusterPolicy
+        
     ]
 
     tags = {
@@ -19,6 +23,7 @@ resource "aws_eks_cluster" "eks_cluster" {
 }
 
 resource "aws_iam_role" "cluster" {
+  description = "Creation of Role for the cluster with necesary permissions"
   name = "${var.environment}-Cluster-Role"
 
   assume_role_policy = <<POLICY
@@ -37,12 +42,13 @@ resource "aws_iam_role" "cluster" {
     POLICY
 }
 
+# creation of IAM Role for the cluster
 resource "aws_iam_role_policy_attachment" "cluster_AmazonEKSClusterPolicy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSClusterPolicy"
   role       = aws_iam_role.cluster.name
 }
 
-
+# creation of security group for the cluster
 resource "aws_security_group" "eks_cluster" {
   name        = "${var.environment}-cluster-sg"
   description = "Cluster communication with worker nodes"
@@ -52,7 +58,7 @@ resource "aws_security_group" "eks_cluster" {
     Name = "${var.environment}-cluster-sg"
   }
 }
-
+# Specification of inbound rules for the cluster
 resource "aws_security_group_rule" "cluster_inbound" {
   description              = "Allow worker nodes to communicate with the cluster API Server"
   from_port                = 443
@@ -62,7 +68,7 @@ resource "aws_security_group_rule" "cluster_inbound" {
   to_port                  = 443
   type                     = "ingress"
 }
-
+# Specification of outbound rules for the cluster
 resource "aws_security_group_rule" "cluster_outbound" {
   description              = "Allow cluster API Server to communicate with the worker nodes"
   from_port                = 1024

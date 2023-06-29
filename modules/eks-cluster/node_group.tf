@@ -1,15 +1,17 @@
+# creation of the nodegroup for the cluster
+
 resource "aws_eks_node_group" "eks_node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
   node_group_name = "${var.environment}-eks-node-group"
   node_role_arn   = aws_iam_role.node.arn
   subnet_ids      = var.eks_subnet_ids
-
+# setting the max and min size of the nodegroup
   scaling_config {
     desired_size = 2
     max_size     = 5
     min_size     = 1
   }
-
+# selecting the type of the AMI, Capacity, disk size and Instance Tyes for the instances in the node group
   ami_type       = "AL2_x86_64" # AL2_x86_64, AL2_x86_64_GPU, AL2_ARM_64, CUSTOM
   capacity_type  = "ON_DEMAND"  # ON_DEMAND, SPOT
   disk_size      = 20

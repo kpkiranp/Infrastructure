@@ -1,3 +1,4 @@
+# Variables defined for the VPC module
 variable "vpc_cidr" {
   type = string
 }

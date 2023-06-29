@@ -1,3 +1,4 @@
+# Variables to be used accross modules
 
 variable "root_region" {
   type=string
