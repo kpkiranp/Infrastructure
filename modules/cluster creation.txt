@@ -1,0 +1,28 @@
+Steps involved in setting up the eks cluster
+
+1. Creation of VPC 
+
+Defining the resource block for the VPC creation
+Defining the Internet gateway for public subnet
+Creation of the Elastic IP for NAT
+Creation of NAT gateway in public Subnet
+Creation of public subnet
+Creation of private subnet
+Routing table for public subnet
+Routing tabe for Private subnet
+Associating the Internet Gateway to Public 
+Associating the NAT Gateway to private
+VPC security group and defining the Inbound and Outbound traffic
+
+2. Creation of EKS cluster
+
+Defining the resource block for creation of EKS cluster
+VPC configuration
+Creation of roles to the cluster with necessary permissions
+Attaching the policy to the roles
+Creation of security group to the cluster and specifying the inbound and outbound rules
+creation of the nodegroup for the cluster
+setting the max and min size of the nodegroup
+selecting the type of the AMI, Capacity, disk size and Instance Tyes for the instances in the node group
+EKS Node IAM Role
+EKS Node Security Group
